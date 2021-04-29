@@ -14,7 +14,7 @@ int ProgramMd::Run() {
     headers_ = {"m", "z", "S", "tiempo / segundos"};
     for (size_t m_index = 2; m_index <= m; ++m_index) {
       algorithm = new GreedyMd;
-      ProblemMd problem(arg_[2], algorithm, m);
+      ProblemMd problem(arg_[2], algorithm, m_index);
       timer.Play();
       problem.Solve();
       timer.Stop();
@@ -34,12 +34,12 @@ void ProgramMd::Export() {
   std::cout << "Exportando en: " << file_name << std::endl;
 
   // Imprimir cabeceras
-  for (auto& element : headers_) file << element << ";";
+  for (auto& element : headers_) file << element << "\t";
   file << '\n';
 
   // Imprimir info
   for (auto& row : data_) {
-    for (auto& value : row) file << value << ";";
+    for (auto& value : row) file << value << "\t";
     file << '\n';
   }
 

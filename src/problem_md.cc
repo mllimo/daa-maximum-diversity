@@ -17,8 +17,9 @@ float ProblemMd::Z() const {
   std::vector<std::vector<float>> vector_data(data_.begin(), data_.end());
   float z = 0;
   for (size_t i = 0; i < vector_data.size() - 1; ++i) {
-    if (solution_.find(vector_data[i]) != solution_.end()) continue;
-    for (size_t j = i + 1; j < vector_data.size() && solution_.find(vector_data[j]) != solution_.end(); ++j) {
+    if (solution_.find(vector_data[i]) == solution_.end()) continue;
+    for (size_t j = i + 1; j < vector_data.size(); ++j) {
+      if (solution_.find(vector_data[j]) == solution_.end()) continue;
       z += Distance(vector_data[i], vector_data[j]);
     }
   }
