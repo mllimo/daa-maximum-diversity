@@ -18,14 +18,14 @@ float LocalSeachMd::Z(const std::set<std::vector<float>>& solution) const {
 void LocalSeachMd::UpdateSolution(std::set<std::vector<float>>& solution,
                       std::vector<std::vector<float>>& neighbour_solution) {
   std::set<std::vector<float>> aux(neighbour_solution.begin(), neighbour_solution.end());
-  if (Z(aux) < Z(solution)) {
+  if (Z(aux) > Z(solution)) {
     solution = aux;
   }
 }
 
 void LocalSeachMd::UpdateSolution(std::set<std::vector<float>>& solution,
                       std::set<std::vector<float>>& neighbour_solution) {
-  if (Z(neighbour_solution) < Z(solution)) {
+  if (Z(neighbour_solution) > Z(solution)) {
     solution = neighbour_solution;
   }
 }

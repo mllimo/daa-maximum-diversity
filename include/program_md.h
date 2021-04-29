@@ -2,6 +2,8 @@
 #define PROGRAM_MD_H
 
 #include <greedy_md.h>
+#include <greedy_local_md.h>
+#include <swap_entre_md.h>
 #include <problem_md.h>
 #include <program.h>
 #include <timer.h>

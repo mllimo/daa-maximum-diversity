@@ -10,6 +10,7 @@ int ProgramMd::Run() {
 
   size_t m = (size_t)stoi(arg_[3]);
 
+  // TODO: Refactorizar
   if (arg_[1] == "GREEDY") {
     headers_ = {"m", "z", "S", "tiempo / segundos"};
     for (size_t m_index = 2; m_index <= m; ++m_index) {
@@ -18,7 +19,19 @@ int ProgramMd::Run() {
       timer.Play();
       problem.Solve();
       timer.Stop();
-      std::cout << "Resultado: " << problem.Z() << std::endl;
+      std::cout << "Resultado: " << problem.Z() << " Tiempo: " << timer.Get() << std::endl;
+      data_.push_back({std::to_string(m_index), std::to_string(problem.Z()), problem.ToString(),
+                       std::to_string(timer.Get())});
+    }
+  } else if (arg_[1] == "LOCAL") {
+    headers_ = {"m", "z", "S", "tiempo / segundos"};
+    for (size_t m_index = 2; m_index <= m; ++m_index) {
+      algorithm = new GreedyLocalMd(new SwapEntreMd());
+      ProblemMd problem(arg_[2], algorithm, m_index);
+      timer.Play();
+      problem.Solve();
+      timer.Stop();
+      std::cout << "Resultado: " << problem.Z() << " Tiempo: " << timer.Get() << std::endl;
       data_.push_back({std::to_string(m_index), std::to_string(problem.Z()), problem.ToString(),
                        std::to_string(timer.Get())});
     }

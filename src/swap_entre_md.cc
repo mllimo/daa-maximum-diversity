@@ -15,5 +15,4 @@ void SwapEntreMd::operator()(std::set<std::vector<float>>& solution,
       std::swap(neighbour_solution[i], copy_data[j]);
     }
   }
-  solution = std::set<std::vector<float>>(neighbour_solution.begin(), neighbour_solution.end());
 }
