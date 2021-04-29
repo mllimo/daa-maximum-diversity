@@ -5,6 +5,7 @@
 #include <set>
 #include <vector>
 #include <limits>
+#include <string>
 
 /**
  * @brief Devuelve el punto que representa el centro de gravedad del conjunto de puntos
@@ -22,4 +23,6 @@ std::vector<float> GravityCenter(const std::set<std::vector<float>>& vectors);
 float Distance(const std::vector<float>& vector_a, const std::vector<float>& vector_b);
 
 std::vector<float> operator*(float multiplier, const std::vector<float>& vector);
+
+std::string VectorToString(const std::vector<float>& vector);
 #endif

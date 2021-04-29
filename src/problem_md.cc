@@ -4,14 +4,36 @@ ProblemMd::ProblemMd(const std::string& file_path, StrategyMd* strategy, size_t 
     : m_(m), strategy_(strategy) {
   std::fstream input_file(file_path, std::ios_base::in);
   input_file >> *this;
+  input_file.close();
 }
 
 ProblemMd::~ProblemMd() {
   if (strategy_ != NULL) delete strategy_;
 }
 
-void ProblemMd::Solve() {
-  (*strategy_)(solution_, data_, m_);
+void ProblemMd::Solve() { (*strategy_)(solution_, data_, m_); }
+
+float ProblemMd::Z() const {
+  std::vector<std::vector<float>> vector_data(data_.begin(), data_.end());
+  float z = 0;
+  for (size_t i = 0; i < vector_data.size() - 1; ++i) {
+    if (solution_.find(vector_data[i]) != solution_.end()) continue;
+    for (size_t j = i + 1; j < vector_data.size() && solution_.find(vector_data[j]) != solution_.end(); ++j) {
+      z += Distance(vector_data[i], vector_data[j]);
+    }
+  }
+  return z;
+}
+
+std::string ProblemMd::ToString() {
+  std::string out = "{ ";
+  for (const auto& vector : solution_) {
+    out += VectorToString(vector) + ", ";
+  }
+  out.pop_back();
+  out.pop_back();
+  out += " }";
+  return out;
 }
 
 std::istream& operator>>(std::istream& is, ProblemMd& problem) {

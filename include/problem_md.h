@@ -2,6 +2,7 @@
 #define PROBLEM_MD_H
 
 #include <strategy_md.h>
+#include <vector_utility.h>
 
 #include <iostream>
 #include <fstream>
@@ -24,13 +25,26 @@ class ProblemMd {
    */
   void Solve();
 
+  /**
+   * @brief Devuelve la diversidad máxima de la solución encontrada
+   * @return float 
+   */
+  float Z() const;
+
+  /**
+   * @brief Convierte la solución a un string
+   * @return std::string 
+   */
+  std::string ToString();
+
   friend std::istream& operator>>(std::istream& is, ProblemMd& problem);
 
  private:
+  size_t m_;
   std::set<std::vector<float>> solution_;
   std::set<std::vector<float>> data_;
   StrategyMd* strategy_;
-  size_t m_;
+
 };
 
 #endif
