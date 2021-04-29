@@ -10,6 +10,15 @@ class GreedyMd : public StrategyMd {
 
   virtual void operator()(std::set<std::vector<float>>& solution,
                           const std::set<std::vector<float>>& data, const size_t m);
+
+ protected:
+  /**
+   * @brief Devuelve el mejor candidado. En este caso el vector más alejado al punto dado
+   * @param vectors Conjunto de vectores
+   * @param point Punto de referencia
+   */
+  virtual std::vector<float> Selecction(const std::set<std::vector<float>>& vectors,
+                                        const std::vector<float>& point);
 };
 
 #endif

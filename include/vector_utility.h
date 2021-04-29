@@ -21,13 +21,5 @@ std::vector<float> GravityCenter(const std::set<std::vector<float>>& vectors);
  */
 float Distance(const std::vector<float>& vector_a, const std::vector<float>& vector_b);
 
-/**
- * @brief Devuelve el vector más alejado en base a un punto
- * @param vectors Conjunto de vectores
- * @param point Punto de referencia
- */
-std::vector<float> GetFarthestVectorFrom(const std::set<std::vector<float>>& vectors,
-                                         const std::vector<float>& point);
-
 std::vector<float> operator*(float multiplier, const std::vector<float>& vector);
 #endif
