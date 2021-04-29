@@ -8,6 +8,8 @@ void GreedyMd::operator()(std::set<std::vector<float>>& solution,
   solution.clear();
   auto gravity_center = GravityCenter(elements);
   do {
-
+    auto pair = solution.insert(std::move(GetFarthestVectorFrom(elements, gravity_center)));
+    elements.erase(pair.first);
+    gravity_center = GravityCenter(solution);
   } while (solution.size() == m);
 }

@@ -19,6 +19,20 @@ float Distance(const std::vector<float>& vector_a, const std::vector<float>& vec
   return sqrt(distance);
 }
 
+std::vector<float> GetFarthestVectorFrom(const std::set<std::vector<float>>& vectors,
+                                         const std::vector<float>& point) {
+  std::vector<float> farthest_vector;
+  float farthest_distance = std::numeric_limits<float>::min(), aux_distance;
+  for (const auto& vector : vectors) {
+    aux_distance = Distance(point, vector);
+    if (aux_distance > farthest_distance) {
+      farthest_distance = aux_distance;
+      farthest_vector = vector;
+    }
+  }
+  return farthest_vector;
+}
+
 std::vector<float> operator*(float multiplier, const std::vector<float>& vector) {
   std::vector<float> solution(vector.size());
   for (size_t i = 0; i < solution.size(); ++i) {
