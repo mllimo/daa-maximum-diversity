@@ -17,7 +17,7 @@ class GreedyMd : public StrategyMd {
    * @param vectors Conjunto de vectores
    * @param point Punto de referencia
    */
-  virtual std::vector<float> Selecction(const std::set<std::vector<float>>& vectors,
+  virtual std::vector<float> Selection(const std::set<std::vector<float>>& vectors,
                                         const std::vector<float>& point);
 };
 

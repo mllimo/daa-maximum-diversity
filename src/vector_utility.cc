@@ -1,7 +1,7 @@
 #include <vector_utility.h>
 
 std::vector<float> GravityCenter(const std::set<std::vector<float>>& vectors) {
-  float multiplier = 1 / vectors.size();
+  float multiplier = 1.f / (float)vectors.size();
   std::vector<float> gravity_center(vectors.begin()->size(), 0.f);
   for (size_t i = 0; i < vectors.begin()->size(); ++i) {
     for (const auto& vector : vectors) {

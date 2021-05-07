@@ -8,13 +8,13 @@ void GreedyMd::operator()(std::set<std::vector<float>>& solution,
   solution.clear();
   auto gravity_center = GravityCenter(elements);
   do {
-    auto pair = solution.insert(Selecction(elements, gravity_center));
+    auto pair = solution.insert(Selection(elements, gravity_center));
     elements.erase(*(pair.first));
     gravity_center = GravityCenter(solution);
   } while (solution.size() < m);
 }
 
-std::vector<float> GreedyMd::Selecction(const std::set<std::vector<float>>& vectors,
+std::vector<float> GreedyMd::Selection(const std::set<std::vector<float>>& vectors,
                                          const std::vector<float>& point) {
   std::vector<float> farthest_vector;
   float farthest_distance = std::numeric_limits<float>::min(), aux_distance;

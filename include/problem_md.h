@@ -4,8 +4,8 @@
 #include <strategy_md.h>
 #include <vector_utility.h>
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <string>
 
 class ProblemMd {
@@ -27,13 +27,13 @@ class ProblemMd {
 
   /**
    * @brief Devuelve la diversidad máxima de la solución encontrada
-   * @return float 
+   * @return float
    */
   float Z() const;
 
   /**
    * @brief Convierte la solución a un string
-   * @return std::string 
+   * @return std::string
    */
   std::string ToString();
 
@@ -43,8 +43,8 @@ class ProblemMd {
   size_t m_;
   std::set<std::vector<float>> solution_;
   std::set<std::vector<float>> data_;
+  std::vector<std::vector<float>> vector_data;
   StrategyMd* strategy_;
-
 };
 
 #endif

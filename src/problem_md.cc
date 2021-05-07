@@ -4,6 +4,7 @@ ProblemMd::ProblemMd(const std::string& file_path, StrategyMd* strategy, size_t 
     : m_(m), strategy_(strategy) {
   std::fstream input_file(file_path, std::ios_base::in);
   input_file >> *this;
+  vector_data.insert(vector_data.begin(), data_.begin(), data_.end());
   input_file.close();
 }
 
@@ -14,7 +15,6 @@ ProblemMd::~ProblemMd() {
 void ProblemMd::Solve() { (*strategy_)(solution_, data_, m_); }
 
 float ProblemMd::Z() const {
-  std::vector<std::vector<float>> vector_data(data_.begin(), data_.end());
   float z = 0;
   for (size_t i = 0; i < vector_data.size() - 1; ++i) {
     if (solution_.find(vector_data[i]) == solution_.end()) continue;
