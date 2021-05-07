@@ -1,11 +1,13 @@
 #ifndef PROGRAM_MD_H
 #define PROGRAM_MD_H
 
-#include <greedy_md.h>
+#include <grasp_md.h>
 #include <greedy_local_md.h>
-#include <swap_entre_md.h>
+#include <greedy_md.h>
 #include <problem_md.h>
 #include <program.h>
+#include <stop_no_improvement_md.h>
+#include <swap_entre_md.h>
 #include <timer.h>
 
 class ProgramMd : public Program {
@@ -22,7 +24,7 @@ class ProgramMd : public Program {
   StrategyMd* algorithm;
   Timer timer;
 
- void Export();
+  void Export();
 };
 
 #endif

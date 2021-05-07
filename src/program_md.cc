@@ -35,6 +35,23 @@ int ProgramMd::Run() {
       data_.push_back({std::to_string(m_index), std::to_string(problem.Z()), problem.ToString(),
                        std::to_string(timer.Get())});
     }
+  } else if (arg_[1] == "GRASP") {
+    headers_ = {"m", "iter", "|LRC|", "z", "S", "tiempo / segundos"};
+    for (size_t m_index = 2; m_index <= m; ++m_index) {
+      for (size_t iterations = 10; iterations <= 20; iterations += 10) {
+        for (size_t k = 2; k <= 3; ++k) {
+          algorithm = new GraspMd(k, new StopNoImprovementMd(iterations));
+          ProblemMd problem(arg_[2], algorithm, m_index);
+          timer.Play();
+          problem.Solve();
+          timer.Stop();
+          std::cout << "Resultado: " << problem.Z() << " Tiempo: " << timer.Get() << std::endl;
+          data_.push_back({std::to_string(m_index), std::to_string(iterations), std::to_string(k),
+                           std::to_string(problem.Z()), problem.ToString(),
+                           std::to_string(timer.Get())});
+        }
+      }
+    }
   }
   Export();
   return 0;
@@ -59,4 +76,4 @@ void ProgramMd::Export() {
   file.close();
 }
 
-void ProgramMd::ShowUsage() const { std::cout << "./maximum-diversity <GREEDY> <file> <m>\n"; }
+void ProgramMd::ShowUsage() const { std::cout << "./maximum-diversity <GREEDY|LOCAL|GRASP> <file> <m>\n"; }

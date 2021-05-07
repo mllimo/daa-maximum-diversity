@@ -6,12 +6,14 @@
 class StopNoImprovementMd : public StopConditionMd {
  public:
   StopNoImprovementMd(size_t max_no_improvement_);
+  ~StopNoImprovementMd();
+
   virtual bool operator()(std::set<std::vector<float>>& solution,
                           std::set<std::vector<float>>& best_solution,
-                          const std::vector<std::vector<float>>& vector_data) = 0;
+                          const std::vector<std::vector<float>>& vector_data);
   private:
-   size_t no_improvement_counter_;
    size_t max_no_improvement_;
+   size_t no_improvement_counter_;
 };
 
 #endif

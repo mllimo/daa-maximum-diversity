@@ -3,7 +3,7 @@
 StopNoImprovementMd::StopNoImprovementMd(size_t max_no_improvement)
     : StopConditionMd(), max_no_improvement_(max_no_improvement), no_improvement_counter_(0) {}
 
-StopConditionMd::~StopConditionMd() {}
+StopNoImprovementMd::~StopNoImprovementMd() {}
 
 bool StopNoImprovementMd::operator()(std::set<std::vector<float>>& solution,
                                      std::set<std::vector<float>>& best_solution,

@@ -8,12 +8,14 @@
 
 class LocalSeachMd {
  public:
+  LocalSeachMd();
   virtual ~LocalSeachMd();
   virtual void operator()(std::set<std::vector<float>>& solution,
                           const std::set<std::vector<float>>& data) = 0;
 
  protected:
   const std::set<std::vector<float>>* data_;
+  std::vector<std::vector<float>> vector_data;
   float Z(const std::set<std::vector<float>>& solution) const;
   void UpdateSolution(std::set<std::vector<float>>& solution,
                       std::vector<std::vector<float>>& neighbour_solution);

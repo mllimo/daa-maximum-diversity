@@ -2,7 +2,7 @@
 
 GreedyLocalMd::GreedyLocalMd(LocalSeachMd* local_search_) : local_search(local_search_) {}
 
-GreedyLocalMd::~GreedyLocalMd() {}
+GreedyLocalMd::~GreedyLocalMd() { delete local_search; }
 
 void GreedyLocalMd::operator()(std::set<std::vector<float>>& solution,
                                const std::set<std::vector<float>>& data, const size_t m) {

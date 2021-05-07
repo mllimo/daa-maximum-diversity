@@ -9,11 +9,11 @@ GraspMd::~GraspMd() { delete stop_condition; }
 
 void GraspMd::operator()(std::set<std::vector<float>>& solution,
                          const std::set<std::vector<float>>& data, const size_t m) {
-  auto best_solution = solution;
+  auto actual_solution = solution;
   const std::vector<std::vector<float>> vector_data(data.begin(), data.end());
   do {
-    Construct(solution, data, m);
-  } while (true); /*condicion de parada + actualizacion de solucion*/
+    Construct(actual_solution, data, m);
+  } while ((*stop_condition)(actual_solution, solution, vector_data)); /*condicion de parada + actualizacion de solucion*/
 }
 
 void GraspMd::Construct(std::set<std::vector<float>>& solution,
@@ -25,7 +25,7 @@ void GraspMd::Construct(std::set<std::vector<float>>& solution,
 
   while (solution.size() < m) {
     random_list = MakeRcl(actual_candidates, gravity_center);
-    if (random_list.size() != 0) break;
+    if (random_list.size() == 0) break;
     candidate = SelectionRandom(random_list);
     actual_candidates.erase(candidate);
     solution.insert(candidate);
