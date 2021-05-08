@@ -40,7 +40,7 @@ int ProgramMd::Run() {
     for (size_t m_index = 2; m_index <= m; ++m_index) {
       for (size_t iterations = 10; iterations <= 20; iterations += 10) {
         for (size_t k = 2; k <= 3; ++k) {
-          algorithm = new GraspMd(k, new StopNoImprovementMd(iterations));
+          algorithm = new GraspMd(k, new StopNoImprovementMd(iterations), new SwapEntreMd());
           ProblemMd problem(arg_[2], algorithm, m_index);
           timer.Play();
           problem.Solve();

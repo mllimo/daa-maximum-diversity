@@ -1,5 +1,12 @@
-debug: CMakeLists.txt
-	$(cd build/) cmake -D CMAKE_BUILD_TYPE=Debug $(pwd)
+CMAKE_DIR=$(PWD)
 
-release: CMakeLists.txt
-	$(cd build/) cmake -D CMAKE_BUILD_TYPE=Release $($pwd)
+debug:
+	cmake -S . -B build/ -D CMAKE_BUILD_TYPE=Debug
+	make -C build/
+
+release:
+	cmake -S . -B build/ -D CMAKE_BUILD_TYPE=Release
+	make -C build/
+
+clean:
+	make -C build/ clean
