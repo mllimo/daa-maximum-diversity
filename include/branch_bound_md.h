@@ -23,6 +23,7 @@ class BranchBoundMd : public StrategyMd {
   size_t m;
   float upper_bound;
   Node* node_solution;
+  size_t generated_nodes_counter;
   StrategyMd* upper_bound_algorithm;
   SelectionFunction* selection_function;
   std::vector<std::vector<float>> vector_data;

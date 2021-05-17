@@ -1,7 +1,10 @@
 #include <branch_bound_md.h>
 
 BranchBoundMd::BranchBoundMd(StrategyMd* algorithm, SelectionFunction* selection)
-    : upper_bound_algorithm(algorithm), selection_function(selection) {}
+    : upper_bound_algorithm(algorithm), selection_function(selection) {
+  node_solution = NULL;
+  generated_nodes_counter = 0;
+}
 
 BranchBoundMd::~BranchBoundMd() {
   delete upper_bound_algorithm;
@@ -34,17 +37,19 @@ void BranchBoundMd::operator()(std::set<std::vector<float>>& solution,
   }
 
   // Asignamos valor a la solución
-  if (node_solution != NULL && Z(node_solution->partial_solution) < Z(solution)) {
-    solution.clear();
-    for (size_t i = 0; i < node_solution->partial_solution.size(); ++i) {
-      if (node_solution->partial_solution[i]) solution.insert(vector_data[i]);
+  if (node_solution != NULL) {
+    if (Z(node_solution->partial_solution) < Z(solution)) {
+      solution.clear();
+      for (size_t i = 0; i < node_solution->partial_solution.size(); ++i) {
+        if (node_solution->partial_solution[i]) solution.insert(vector_data[i]);
+      }
     }
   }
 }
 
 void BranchBoundMd::InitializeTree() {
-  std::vector<bool> partial_solution(vector_data.size(), false);
   for (size_t i = 0; i < vector_data.size(); ++i) {
+    std::vector<bool> partial_solution(vector_data.size(), false);
     partial_solution[i] = true;
     float bound = GetUpperBound(partial_solution);
     Node* node = new Node(bound, 1, partial_solution);
@@ -61,9 +66,10 @@ void BranchBoundMd::ExpandNode(Node* selected_node, float limit) {
       temp[i] = true;
       float bound = GetUpperBound(temp);
       if (bound > limit) {
+        generated_nodes_counter += 1;
         // Añadir hijo a selected_node
         size_t solution_depth = selected_node->depth + 1;
-        Node* new_node = new Node(solution_depth, bound, temp);
+        Node* new_node = new Node(bound, solution_depth, temp);
         selected_node->childs.push_back(new_node);
         data.insert(std::make_pair(bound, new_node));
         if (solution_depth == m) {
@@ -72,7 +78,9 @@ void BranchBoundMd::ExpandNode(Node* selected_node, float limit) {
       }
     }
   }
-  data.erase(data.find(std::pair<float, Node*>(selected_node->bound, selected_node)));
+  auto it = data.find(std::pair<float, Node*>(selected_node->bound, selected_node));
+  if (it != data.end())
+    data.erase(it);
 }
 
 void BranchBoundMd::RemoveNodes(float bound) {
@@ -184,6 +192,4 @@ float BranchBoundMd::Z(const std::vector<bool>& bool_solution) const {
   return z;
 }
 
-size_t BranchBoundMd::GetGeneratedNodes() const {
-  return 0;
-}
+size_t BranchBoundMd::GetGeneratedNodes() const { return generated_nodes_counter; }
