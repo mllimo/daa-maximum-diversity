@@ -79,17 +79,19 @@ void BranchBoundMd::ExpandNode(Node* selected_node, float limit) {
     }
   }
   auto it = data.find(std::pair<float, Node*>(selected_node->bound, selected_node));
-  if (it != data.end())
-    data.erase(it);
+  if (it != data.end()) data.erase(it);
 }
 
 void BranchBoundMd::RemoveNodes(float bound) {
-  std::multiset<std::pair<float, Node*>>::iterator it;
-  for (it = data.begin(); it != data.end(); it++) {
-    if ((*it).first <= bound) {
-      data.erase(it);
+  std::list <std::pair<float, Node*>> to_delete;
+  for (auto it = data.begin(); it != data.end(); ++it) {
+    if (it->first <= bound) {
+      to_delete.push_back(*it);
     }
   }
+
+  for (const auto& pair : to_delete)
+    data.erase(data.find(pair));
 }
 
 float BranchBoundMd::UpdateBound() {

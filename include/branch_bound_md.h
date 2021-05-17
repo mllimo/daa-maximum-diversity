@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <set>
 #include <vector>
+#include <list>
 
 class BranchBoundMd : public StrategyMd {
  public:
