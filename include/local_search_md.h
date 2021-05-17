@@ -10,6 +10,13 @@ class LocalSeachMd {
  public:
   LocalSeachMd();
   virtual ~LocalSeachMd();
+
+  /**
+   * @brief Genera una búsqueda local sobre la solución
+   * @param solution Solución donde se aplicará el la búsqueda local y finalmente si es mejor
+   * la solución de la búsqueda local que la actual la sustituye
+   * @param data Datos del problema
+   */
   virtual void operator()(std::set<std::vector<float>>& solution,
                           const std::set<std::vector<float>>& data) = 0;
 

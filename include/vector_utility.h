@@ -22,7 +22,18 @@ std::vector<float> GravityCenter(const std::set<std::vector<float>>& vectors);
  */
 float Distance(const std::vector<float>& vector_a, const std::vector<float>& vector_b);
 
+/**
+ * @brief Sobrecarga de operador para poder multiplicar un escalar con un vector
+ * @param multiplier Escalar
+ * @param vector Vector
+ * @return std::vector<float> Vector resultante 
+ */
 std::vector<float> operator*(float multiplier, const std::vector<float>& vector);
 
+/**
+ * @brief Convierte un vector a string
+ * @param vector Vector a convertir a string
+ * @return std::string Vector en formato de string
+ */
 std::string VectorToString(const std::vector<float>& vector);
 #endif

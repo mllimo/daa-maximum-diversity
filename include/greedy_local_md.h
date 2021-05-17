@@ -5,8 +5,13 @@
 #include <local_search_md.h>
 class GreedyLocalMd : public GreedyMd {
  public:
+ /**
+  * @brief Constructor para asignarle una búsqueda local al algoritmo
+  * @param local_search_ Búsqueda local
+  */
   GreedyLocalMd(LocalSeachMd* local_search_);
   ~GreedyLocalMd();
+
   void operator()(std::set<std::vector<float>>& solution, const std::set<std::vector<float>>& data,
                   const size_t m);
 

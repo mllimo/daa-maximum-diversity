@@ -8,6 +8,11 @@
 class SelectionFunction {
  public:
   virtual ~SelectionFunction();
+  /**
+   * @brief Interfaz para la función que elegirá al mejor candidado del conjunto de datos pasado por parámetros.
+   * @param data Conjunto de datos parcial del problema.
+   * @return Node* Mejor candidato.
+   */
   virtual Node* operator()(const std::multiset<std::pair<float, Node*>>& data) = 0;
 };
 

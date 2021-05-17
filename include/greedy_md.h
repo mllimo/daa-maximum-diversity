@@ -8,6 +8,12 @@ class GreedyMd : public StrategyMd {
  public:
   virtual ~GreedyMd();
 
+  /**
+   * @brief Sobrecarga de operador para resolver el problema
+   * @param solution Variable que representará la solución final
+   * @param data Los datos del problema
+   * @param m Tamaño del problema
+   */
   virtual void operator()(std::set<std::vector<float>>& solution,
                           const std::set<std::vector<float>>& data, const size_t m);
 
@@ -18,7 +24,7 @@ class GreedyMd : public StrategyMd {
    * @param point Punto de referencia
    */
   virtual std::vector<float> Selection(const std::set<std::vector<float>>& vectors,
-                                        const std::vector<float>& point);
+                                       const std::vector<float>& point);
 };
 
 #endif

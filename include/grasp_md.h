@@ -2,13 +2,21 @@
 #define GRASP_MD_H
 
 #include <greedy_md.h>
-#include <stop_condition_md.h>
 #include <local_search_md.h>
+#include <stop_condition_md.h>
+
 #include <iostream>
 #include <random>
 
 class GraspMd : public GreedyMd {
  public:
+  /**
+   * @brief Constructor de la clase Grasp. Inicializa las variables que serán necesitas dentro de la
+   * resolución del problema
+   * @param k Tamaño de la lista aleatorio de candidatos
+   * @param stop Criterio de parada
+   * @param local Si se desea se puede añadir una busqueda local después de la construcción
+   */
   GraspMd(size_t k, StopConditionMd* stop, LocalSeachMd* local = NULL);
   virtual ~GraspMd();
 
