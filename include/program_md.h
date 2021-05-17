@@ -1,11 +1,14 @@
 #ifndef PROGRAM_MD_H
 #define PROGRAM_MD_H
 
+#include <branch_bound_md.h>
 #include <grasp_md.h>
 #include <greedy_local_md.h>
 #include <greedy_md.h>
 #include <problem_md.h>
 #include <program.h>
+#include <selection_depth.h>
+#include <selection_distance.h>
 #include <stop_no_improvement_md.h>
 #include <swap_entre_md.h>
 #include <timer.h>

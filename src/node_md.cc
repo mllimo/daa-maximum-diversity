@@ -6,4 +6,9 @@ Node::Node(float bound_, size_t depth_, const std::vector<bool>& partial_solutio
   partial_solution = partial_solution_;
 }
 
-Node::~Node() {}
+Node::~Node() {
+  for (auto node : childs) {
+    if (node != NULL)
+      delete node;
+  }
+}

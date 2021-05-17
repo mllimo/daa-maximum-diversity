@@ -5,6 +5,7 @@ BranchBoundMd::BranchBoundMd(StrategyMd* algorithm, SelectionFunction* selection
 
 BranchBoundMd::~BranchBoundMd() {
   delete upper_bound_algorithm;
+  delete selection_function;
   DestroyTree();
 }
 
@@ -23,8 +24,8 @@ void BranchBoundMd::operator()(std::set<std::vector<float>>& solution,
 
   // Poda y ramificación
   InitializeTree();
-  while (data.size() > 0) {
-    Node* selected_node = (*selection_function)(data);
+  while (this->data.size() > 0) {
+    Node* selected_node = (*selection_function)(this->data);
     ExpandNode(selected_node, upper_bound);
     if (solutions_found.size() > 0) {
       upper_bound = UpdateBound();
@@ -35,7 +36,9 @@ void BranchBoundMd::operator()(std::set<std::vector<float>>& solution,
   // Asignamos valor a la solución
   if (node_solution != NULL && Z(node_solution->partial_solution) < Z(solution)) {
     solution.clear();
-    for (const auto& vector : node_solution->partial_solution) solution.insert(*vector);
+    for (size_t i = 0; i < node_solution->partial_solution.size(); ++i) {
+      if (node_solution->partial_solution[i]) solution.insert(vector_data[i]);
+    }
   }
 }
 
@@ -179,4 +182,8 @@ float BranchBoundMd::Z(const std::vector<bool>& bool_solution) const {
     }
   }
   return z;
+}
+
+size_t BranchBoundMd::GetGeneratedNodes() const {
+  return 0;
 }

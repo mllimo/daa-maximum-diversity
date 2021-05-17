@@ -9,6 +9,12 @@ int ProgramMd::Run() {
   }
 
   size_t m = (size_t)stoi(arg_[3]);
+  auto ryp = [=]() -> SelectionFunction* {
+    if (arg_[5] == "DEPTH")
+      return new SelectionDepth;
+    else
+      return new SelectionDistance;
+  };
 
   // TODO: Refactorizar
   if (arg_[1] == "GREEDY") {
@@ -52,6 +58,24 @@ int ProgramMd::Run() {
         }
       }
     }
+  } else if (arg_[1] == "RyP") {
+    headers_ = {"m", "z", "S", "tiempo / segundos", "nodos generados"};
+    for (size_t m_index = 2; m_index <= m; ++m_index) {
+      StrategyMd* initial_algorithm =
+          (arg_[4] == "GREEDY"
+               ? new GreedyMd
+               : new GraspMd(m_index, new StopNoImprovementMd(50), new SwapEntreMd()));
+      SelectionFunction* selection_function = ryp();
+      algorithm = new BranchBoundMd(initial_algorithm, selection_function);
+      ProblemMd problem(arg_[2], algorithm, m_index);
+      timer.Play();
+      problem.Solve();
+      timer.Stop();
+      std::cout << "Resultado: " << problem.Z() << " Tiempo: " << timer.Get() << std::endl;
+      data_.push_back({std::to_string(m_index), std::to_string(problem.Z()), problem.ToString(),
+                       std::to_string(timer.Get()),
+                       std::to_string(((BranchBoundMd*)algorithm)->GetGeneratedNodes())});
+    }
   }
   Export();
   return 0;
@@ -76,4 +100,7 @@ void ProgramMd::Export() {
   file.close();
 }
 
-void ProgramMd::ShowUsage() const { std::cout << "./maximum-diversity <GREEDY|LOCAL|GRASP> <file> <m>\n"; }
+void ProgramMd::ShowUsage() const {
+  std::cout << "./maximum-diversity <GREEDY|LOCAL|GRASP> <file> <m>\n"
+            << "  * RyP: <file> <m> <GREEDY|GRASP> <DEPTH|Z>\n";
+}

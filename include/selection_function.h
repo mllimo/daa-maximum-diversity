@@ -3,10 +3,12 @@
 
 #include <set>
 #include <vector>
+#include <node_md.h>
 
 class SelectionFunction {
  public:
-  Node* operator()();
+  virtual ~SelectionFunction();
+  virtual Node* operator()(const std::multiset<std::pair<float, Node*>>& data) = 0;
 };
 
 #endif

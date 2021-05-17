@@ -17,6 +17,8 @@ class BranchBoundMd : public StrategyMd {
   virtual void operator()(std::set<std::vector<float>>& solution,
                           const std::set<std::vector<float>>& data, const size_t m);
 
+  size_t GetGeneratedNodes() const;
+
  protected:
   size_t m;
   float upper_bound;
